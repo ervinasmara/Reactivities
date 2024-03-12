@@ -6,7 +6,7 @@ namespace Persistence
 {
     public class Seed
     /* Biasanya ketika kita menggunakan class, kita akan mengatakan
-    dan itu akan memberi kita instance dari class */    
+    dan itu akan memberi kita instance dari class */
     {
         public static async Task SeedData(DataContext context)
         /* Tapi kalau kita punya metode static, kita tinggal bilang Seed */
@@ -14,9 +14,9 @@ namespace Persistence
             if (context.Activities.Any()) return;
             /* Kemudian di baris pertama ini akan memeriksa database kita untuk
              melihat "Apakah kita sudah memiliki data ditabel 'Activities'?" */
-            /* Jika ya, kode ini tidak akan menanamkan lebih banyak data didalamnya, 
+            /* Jika ya, kode ini tidak akan menanamkan lebih banyak data didalamnya,
              dan akan kembali kemudian menghentikan eksekusinya */
-            /* Jika tidak ada data sama sekali di dalam tabel 'Activities', maka kode ini akan 
+            /* Jika tidak ada data sama sekali di dalam tabel 'Activities', maka kode ini akan
              membuat daftar data yang baru untuk tabel 'Activities' kita.*/
 
             var activities = new List<Activity>
@@ -114,8 +114,8 @@ namespace Persistence
             };
 
             /* Jika menyangkut query dan filter dan semua hal itu, maka kita punya metodenya untuk
-             menambahkan rentang Activities, menambahkan rentang asinkron, dan itu akan memanggil Activities yang 
-            kita panggil di awal metode (baris ke-22), dan itu akan menambah rentangnya activites 
+             menambahkan rentang Activities, menambahkan rentang asinkron, dan itu akan memanggil Activities yang
+            kita panggil di awal metode (baris ke-22), dan itu akan menambah rentangnya activites
             pada tahap ini (baris ke-123) ke dalam Memory */
             /* Ini tidak berpengaruh terhadap apapun pada database saat ini.
              Semua yang dilakukannya, ia menyimpannya ke dalam memori, kemudian dibaris berikutnya

@@ -1,6 +1,7 @@
 ﻿// BaseApiController.cs
 
 using MediatR; // Memanggil IMediator
+using Application.Core; // Memanggil Result<T>
 using Microsoft.AspNetCore.Mvc; // Memanggil ApiController & ControllerBase
 
 namespace API.Controllers
@@ -20,8 +21,18 @@ namespace API.Controllers
         Jadi kita akan memiliki sarana yang dilindungi (protected), yang berarti dapat menggunakannya
         di dalam class ini atau kelas turunan apapun */
 
-        protected IMediator Mediator => _mediator ??= 
+        protected IMediator Mediator => _mediator ??=
             HttpContext.RequestServices.GetService<IMediator>();
             // Mengembalikan _mediator dan menggunakan ??= yaitu untuk siapapun yang berhak menggunakan ini
+
+        protected ActionResult HandleResult<T>(Result<T> result)
+        {
+            if (result == null) return NotFound();
+            if (result.IsSuccess && result.Value != null)
+                return Ok(result.Value);
+            if (result.IsSuccess && result.Value == null)
+                return NotFound();
+            return BadRequest(result.Error);
+        }
     }
 }

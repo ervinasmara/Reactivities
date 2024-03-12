@@ -1,10 +1,11 @@
 ﻿// ApplicationServiceExtensions.cs
 
-using Application.Activities;
-using Application.Core;
-using Microsoft.EntityFrameworkCore;
 using Persistence;
-using MediatR;
+using Application.Core;
+using FluentValidation;
+using Application.Activities;
+using FluentValidation.AspNetCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Extensions
 {
@@ -33,6 +34,13 @@ namespace API.Extensions
 
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(List.Handler).Assembly));
             services.AddAutoMapper(typeof(MappingProfiles).Assembly);
+            /* Kita ingin perilaku ini terjadi secara otomatis karena kita tidak akan
+             menulis banyak kode untuk melakukannya sendiri secara manual */
+            services.AddFluentValidationAutoValidation();
+            /* Kemudian kita akan menentukan hanya salah satu penanganan kami yang berisi beberapa validasi,
+             logika, atau turunan dari validator abstrak
+            Jadi kita akan menentukan Create sebagai nama kelas didalam services yang kita cari */
+            services.AddValidatorsFromAssemblyContaining<Create>();
 
             return services;
         }

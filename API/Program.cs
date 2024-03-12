@@ -1,8 +1,10 @@
 // Program.cs
 
+using Persistence; // Memanggil DataContext.cs?
+using API.Middleware; // Memanggil class "ExceptionMiddleware"
 using API.Extensions; // Menggunakan Fungsi "AddApplicationServices"
 using Microsoft.EntityFrameworkCore; // Menggunakan "Npgsql" (membuat koneksi ke database PostgreSQL)
-using Persistence; // Memanggil DataContext.cs
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -11,6 +13,8 @@ builder.Services.AddApplicationServices(builder.Configuration);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+app.UseMiddleware<ExceptionMiddleware>();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
