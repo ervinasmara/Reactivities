@@ -1,6 +1,7 @@
 ﻿// Seed.cs
 
 using Domain;
+using Microsoft.AspNetCore.Identity; // Memanggil fungsi "UserManager"
 
 namespace Persistence
 {
@@ -8,9 +9,25 @@ namespace Persistence
     /* Biasanya ketika kita menggunakan class, kita akan mengatakan
     dan itu akan memberi kita instance dari class */
     {
-        public static async Task SeedData(DataContext context)
+        public static async Task SeedData(DataContext context, UserManager<AppUser> userManager)
         /* Tapi kalau kita punya metode static, kita tinggal bilang Seed */
-        {
+        {   /* Jadi kita menggunakan "!", lalu kita akan mengakses userManager kita
+            dan kita mendapat akses ke pengguna kita */
+            if (!userManager.Users.Any()) // untuk memeriksa apakah kita memiliki User? Jika tidak maka akan dibuatkan
+            {
+                var users = new List<AppUser>
+                {
+                    new AppUser{DisplayName = "Bob", UserName = "bob", Email = "bob@test.com"},
+                    new AppUser{DisplayName = "Tom", UserName = "tom", Email = "tom@test.com"},
+                    new AppUser{DisplayName = "Jane", UserName = "jane", Email = "jane@test.com"}
+                };
+
+                foreach (var user in users)
+                {
+                    await userManager.CreateAsync(user, "Pa$$w0rd");
+                }
+            }
+
             if (context.Activities.Any()) return;
             /* Kemudian di baris pertama ini akan memeriksa database kita untuk
              melihat "Apakah kita sudah memiliki data ditabel 'Activities'?" */

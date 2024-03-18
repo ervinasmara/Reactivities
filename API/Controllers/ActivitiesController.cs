@@ -6,6 +6,7 @@ using Persistence; // Untuk memanggil DataContext
 using Application.Activities; // Memanggil class List & Details
 using Microsoft.EntityFrameworkCore; // Memanggil fungsi "ToListAsync"
 using Microsoft.AspNetCore.Mvc; // Untuk memanggil [HTTPGet dan lain lain]
+using Microsoft.AspNetCore.Authorization; // Menggunakan fungsi "Authorize"
 
 namespace API.Controllers
 {

@@ -1,12 +1,12 @@
 ﻿// DataContext.cs
 
 using Domain; // Memanggil class "Activity"
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore; // Memanggil fungsi "IdentityDbContext"
 using Microsoft.EntityFrameworkCore; // Memberikan "DbContext"
 
 namespace Persistence
 {
-    // DbContext ini mewakili sesi sesi dengan database dan dapat digunakan untuk query (bertanya) dan save instansi entity kita
-    public class DataContext : DbContext
+    public class DataContext : IdentityDbContext<AppUser>
     {
         public DataContext(DbContextOptions options) : base(options)
         {
